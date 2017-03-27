@@ -5,6 +5,14 @@ from subprocess import Popen, PIPE
 from os.path import expandvars
 import argparse
 import configparser
+try:
+    from emoji.unicode_codes import EMOJI_UNICODE, EMOJI_ALIAS_UNICODE
+    _process_emoji_dic = lambda dic: set([(x.replace(':', ''), y) for x,y in dic.items()])
+    IMP_EMOJI = _process_emoji_dic(EMOJI_UNICODE)
+    IMP_EMOJI |= _process_emoji_dic(EMOJI_ALIAS_UNICODE)
+    IMP_EMOJI = list(IMP_EMOJI)
+except ImportError:
+    IMP_EMOJI = []
 
 XSEL_CLIPBOARDS=['p', 's', 'b']
 
@@ -83,16 +91,17 @@ def main():
 
     # Read config file
     cfg = parse_cfg(args.cfg)
+    emoji_list = cfg.items('emoji') + IMP_EMOJI
 
     # Build input line
-    line = dmenu_format(cfg.items('emoji'))
+    line = dmenu_format(emoji_list)
 
     # Spawn process and get selection
     choice = dmenu_select(line)
 
     # Select emoji
     name = extract_name(choice)
-    choice = get_emoji_by_name(cfg.items('emoji'), name)
+    choice = get_emoji_by_name(emoji_list, name)
 
     # Type emoji under cursor or copy to clipboards
     if args.type:

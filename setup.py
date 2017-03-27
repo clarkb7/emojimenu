@@ -30,7 +30,7 @@ setup(
     keywords='emoji dmenu',
 
     packages=['emojimenu'],
-    install_requires=['argparse', 'configparser'],
+    install_requires=['emoji', 'argparse', 'configparser'],
     data_files=[(join(HOME, '.config/emojimenu'), ['emojimenu/emoji.cfg'])],
 
     entry_points={
