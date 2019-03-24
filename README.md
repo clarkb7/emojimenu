@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/emojimenu.svg)](https://badge.fury.io/py/emojimenu)
+
 # emojimenu
 
 Select emoji using [dmenu](http://tools.suckless.org/dmenu/) and send to
