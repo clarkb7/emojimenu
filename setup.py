@@ -8,10 +8,15 @@ try:
 except KeyError:
     HOME=environ['HOME']
 
+with open("README.md", "r") as f:
+    long_desc = f.read()
+
 setup(
     name='emojimenu',
-    version='0.1',
+    version='0.1.1',
     description='Select and type emoji with dmenu',
+    long_description=long_desc,
+    long_description_content_type="text/markdown",
     url='https://github.com/clarkb7/emojimenu',
     license='MIT',
 
